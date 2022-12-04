@@ -1,9 +1,28 @@
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
+import { SpotlightProvider } from '@mantine/spotlight';
+
 import Nav from '../components/Nav';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function App(props) {
     const { Component, pageProps } = props;
+
+    const router = useRouter();
+
+    const [ borderColor , setBorderColor ] = useState('white');
+    const colorTable = {
+        '/': 'white',
+        '/about': 'blue',
+    }
+
+    useEffect(() => {
+        console.log(borderColor)
+        setBorderColor(colorTable[router.pathname]);
+        
+    }, [router]);
+
 
     return (
         <>
@@ -20,8 +39,10 @@ export default function App(props) {
                     colorScheme: 'dark',
                 }}
             >
-                <Nav />
-                <Component {...pageProps} />
+                <SpotlightProvider shortcut={['mod + P', 'mod + K', '/']} actions={[]}>
+                    <Nav borderColor={borderColor} />
+                    <Component {...pageProps} />
+                </SpotlightProvider>
             </MantineProvider>
         </>
     );

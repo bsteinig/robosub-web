@@ -3,7 +3,7 @@ import React from 'react';
 
 function Home() {
     return (
-        <Container size="md">
+        <Container size="md" py={120}>
             <Text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Nunc id cursus metus aliquam eleifend mi in nulla posuere. Viverra suspendisse
