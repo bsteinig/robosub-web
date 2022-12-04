@@ -37,8 +37,11 @@ const useStyles = createStyles((theme) => ({
     searchCode: {
         fontWeight: 700,
         fontSize: 10,
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
-        border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[2]}`,
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+        border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[2]}`,
+    },
+    search: {
+        backgroundColor: theme.colorScheme === 'dark' ? theme.fn.rgba(theme.colors.dark[7],0.42) : theme.fn.rgba(theme.colors.gray[0],0.53),
     },
 }));
 
@@ -123,6 +126,8 @@ function Nav({ borderColor }) {
                             placeholder="Search"
                             size="sm"
                             radius="md"
+                            variant="filled"
+                            className={classes.search}
                             icon={<IconSearch size={12} stroke={1.5} />}
                             rightSectionWidth={70}
                             rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
