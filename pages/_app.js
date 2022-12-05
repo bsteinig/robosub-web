@@ -10,14 +10,6 @@ import { IconBuildingSkyscraper, IconCamera, IconHome, IconSubmarine, IconUsers 
 export default function App(props) {
     const { Component, pageProps } = props;
 
-    const router = useRouter();
-
-    const [borderColor, setBorderColor] = useState('white');
-    const colorTable = {
-        '/': 'white',
-        '/about': 'blue',
-    };
-
     const actions = [
         {
             title: 'Home',
@@ -51,11 +43,6 @@ export default function App(props) {
         }
     ];
 
-    useEffect(() => {
-        console.log(borderColor);
-        setBorderColor(colorTable[router.pathname]);
-    }, [router]);
-
     return (
         <>
             <Head>
@@ -72,7 +59,7 @@ export default function App(props) {
                 }}
             >
                 <SpotlightProvider shortcut={['mod + P', 'mod + K', '/']} actions={actions} nothingFoundMessage="Nothing found..." highlightQuery>
-                    <Nav borderColor={borderColor} />
+                    <Nav />
                     <Component {...pageProps} />
                 </SpotlightProvider>
             </MantineProvider>

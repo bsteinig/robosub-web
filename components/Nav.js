@@ -1,4 +1,13 @@
-import { Code, createStyles, Group, Navbar, NavLink, Text, TextInput, Title, UnstyledButton } from '@mantine/core';
+import {
+    Code,
+    createStyles,
+    Group,
+    Navbar,
+    Text,
+    TextInput,
+    UnstyledButton,
+    useMantineTheme,
+} from '@mantine/core';
 import React, { useState, useEffect } from 'react';
 import { IconBrandGmail, IconSearch } from '@tabler/icons';
 import { useWindowScroll } from '@mantine/hooks';
@@ -41,12 +50,17 @@ const useStyles = createStyles((theme) => ({
         border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[2]}`,
     },
     search: {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.fn.rgba(theme.colors.dark[7],0.42) : theme.fn.rgba(theme.colors.gray[0],0.53),
+        backgroundColor:
+            theme.colorScheme === 'dark'
+                ? theme.fn.rgba(theme.colors.dark[7], 0.42)
+                : theme.fn.rgba(theme.colors.gray[0], 0.53),
     },
 }));
 
-function Nav({ borderColor }) {
+function Nav() {
     const { classes } = useStyles();
+
+    const theme = useMantineTheme();
 
     const [scroll, scrollTo] = useWindowScroll();
     const router = useRouter();
@@ -55,10 +69,10 @@ function Nav({ borderColor }) {
     const [expanded, setExpanded] = useState(true);
 
     const data = [
-        { label: 'About', value: '/about' },
-        { label: 'Vehicles', value: '/vehicles' },
-        { label: 'Media', value: '/media' },
-        { label: 'Sponsors', value: '/sponsors' },
+        { label: 'About', value: '/about', color: theme.colors.blue[3] },
+        { label: 'Vehicles', value: '/vehicles', color: theme.colors.indigo[3] },
+        { label: 'Media', value: '/media', color: theme.colors.grape[3] },
+        { label: 'Sponsors', value: '/sponsors', color: theme.colors.cyan[3] },
     ];
 
     // set expanded to false if the user scrolls down, and true if they scroll up
@@ -80,7 +94,11 @@ function Nav({ borderColor }) {
     }, [locked]);
 
     const links = data.map((item) => (
-        <NavLink key={item.label} label={<Text weight={600} size='md'>{item.label}</Text>} variant="subtle" component="a" href={item.value} />
+        <UnstyledButton key={item.label} component={NextLink} href={item.value}>
+            <Text weight={600} size="md">
+                {item.label}
+            </Text>
+        </UnstyledButton>
     ));
 
     return (
@@ -90,17 +108,18 @@ function Nav({ borderColor }) {
             p={expanded ? 'sm' : 0}
             width={expanded ? { base: '80vw' } : { base: '60px' }}
             className={classes.root + ' ' + (expanded ? classes.expanded : '')}
-            style={{
-                borderColor: borderColor + ' !important',
+            sx={(theme) => ({
+                borderColor:
+                    ` ${data.find((o) => o.value === router.pathname)?.color || theme.colors.gray[0]} ` + ' !important',
                 borderWidth: '2px !important',
                 borderStyle: 'solid !important',
-            }}
+            })}
         >
             <UnstyledButton
                 className={classes.expand}
                 onClick={() => {
                     if (expanded) {
-                        console.log(router.pathname)
+                        console.log(router.pathname);
                         router.pathname === '/' ? scrollTo({ y: 0 }) : router.push('/');
                     } else setExpanded(!expanded);
                 }}

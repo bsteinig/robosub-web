@@ -1,8 +1,9 @@
 import React from 'react'
+import Filler from '../components/Filler'
 
 function About() {
   return (
-    <div>About</div>
+    <Filler title="About" />
   )
 }
 
